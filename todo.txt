@@ -1,0 +1,25 @@
+MQMain:
+    1) Add a quote //
+    2) Remove quote //
+    3) Search a quote 
+    4) Display all quotes //
+    5) Random a quote //
+    6) Exit //
+    
+MQConst:
+    - The main constructor which will be set as a data type
+    Methods:
+        - Setters and Getters
+        - PrintQuote() ?
+        - Match()
+        - 1 empty constructor
+        
+MQArray:
+    - This will serve as a container for the existing quotes
+    - Must use the data type MemorableQuote
+    Methods:
+        - AddQuote() //
+        - RemoveQuote() //
+        - SearchQuote()
+        - DisplayAll() // 
+        - Random()
