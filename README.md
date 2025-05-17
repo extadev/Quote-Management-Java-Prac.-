@@ -9,4 +9,4 @@ Quote Generator
 6. Exit - Ends the program.
 
 devnote: 
- - Although this was already been debugged several times, therefore expect errors and bugs. And idk, I just tried using git so, yes.
+ - Although this was already been debugged several times, still expect errors and bugs. And idk, I just tried using git so, yes.
