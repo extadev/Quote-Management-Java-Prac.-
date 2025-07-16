@@ -8,5 +8,5 @@ Quote Generator
 5. Random Quote - Provides a random quote which ranges by the length of the current existing quotes.
 6. Exit - Ends the program.
 
-devnote: 
+sidenote: 
  - Although this was already been debugged several times, still expect errors and bugs. And idk, I just tried using git so, yes.
