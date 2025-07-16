@@ -1,4 +1,4 @@
---Midterm exam
+--Midterms
 
 Quote Generator
 1. Add Quote - Adds a quote to the list by the user's input.
@@ -9,4 +9,4 @@ Quote Generator
 6. Exit - Ends the program.
 
 sidenote: 
- - Although this was already been debugged several times, still expect errors and bugs. And idk, I just tried using git so, yes.
+ - Although this was already been debugged several times, still expect errors and bugs. I just tried using git lol.
