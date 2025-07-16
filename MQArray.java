@@ -1,145 +1,99 @@
-import java.util.Random;
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class MQArray {
-    private ArrayList<ArrayList<MQConst>> MQArray = new ArrayList<ArrayList<MQConst>>();
-    ArrayList<MQConst> placeholder = new ArrayList<>();
-    Random rand = new Random();
-    
-    public void initializer() {
-        placeholder.add(new MQConst("bro"));
-        placeholder.add(new MQConst("noob"));
-        MQArray.add(new ArrayList<>(placeholder));
-        System.out.println(MQArray + "MQ ARRAY");
-        System.out.println(placeholder + "placeholder ARRAY");
-        placeholder.clear();
-        placeholder.add(new MQConst("no eyes"));
-        placeholder.add(new MQConst("kurapika"));
-        MQArray.add(new ArrayList<>(placeholder));
-        System.out.println(MQArray + "MQ ARRAY");
-        System.out.println(placeholder + "placeholder ARRAY");
-    }
-    
-    int arrayIndexing = 0;
-
-    public void delay() {
-        try {
-            Thread.sleep(2000);
-        } 
-        catch (Exception e) {
-        }
-    }
-
-    public void delay(int delay) {
-        try {
-            Thread.sleep(delay);
-        } 
-        catch (Exception e) {
-        }
-    }
-
-    public void addQuote() {
-        System.out.println("No quote was added.");
-        delay();
-    }
-    
-    public void addQuote(String qt) {
-        placeholder.add(new MQConst(qt)); // 2D matrix for the randomizer
-        placeholder.add(new MQConst("unknown"));
-        MQArray.add(placeholder);
-        System.out.println("The quote was added successfully");
-        arrayIndexing++;
-        System.out.println(MQArray);
-        delay();
-    }
-
-    public void addQuote(String qt, String ref) {
-        ArrayList<MQConst> placeholder = new ArrayList<>();
-        placeholder.add(new MQConst(qt));// 2D matrix for the randomizer
-        placeholder.add(new MQConst(ref));
-        MQArray.add(placeholder);
-        System.out.println("The quote was added successfully");
-        arrayIndexing++;
-        printing("fortrack");
-        delay();
-    }
-
-    public void displayAll() {
-        System.out.println("Here are currently the existing Quotes:");
-        if (MQArray.size() <= 0) {
-            System.out.println(" idk where quotes are :V");
-        }
-        
-        else if (MQArray.size() > 0) {
-            printing("fordisplay");
-        }
-
-        delay();
-    }
-
-    public void removeQuote(int quoteId) {
-        arrayIndexing = quoteId-1;
-        MQArray.remove(arrayIndexing);
-        System.out.println("Removed successfully.");
-        System.out.println("Here is the updated list of Quotes:");
-        printing("fordisplay");
-        delay();
-    }
-
-    public void Random() {
-        int randomizer = rand.nextInt(MQArray.size());
-        System.out.println("\n" + MQArray.get(randomizer).get(0) + "\n  -" + MQArray.get(randomizer).get(1));
-        delay(1000);
-    }
-
-    public void searchQuote(String searchInput) {
-        boolean found = false;
-        searchInput = searchInput.toLowerCase(); 
-    
-        for (int i = 0; i < MQArray.size(); i++) {
-            String quoteText = MQArray.get(i).get(0).getQuote().toLowerCase();
-            String reference = MQArray.get(i).get(1).getRef().toLowerCase();
-    
-            if (quoteText.contains(searchInput) || reference.contains(searchInput)) {
-                System.out.println("Quote found!");
-                System.out.println((i+1) + ") " + MQArray.get(i).get(0) + "\n  -" + MQArray.get(i).get(1));
-                found = true;
-            }
-        }
-    
-        if (!found) {
-            System.out.println("No match found for: " + searchInput);
-        }
-    
-        delay();
-    }
-
-    public void printing(String forpath) {
-        switch (forpath) {
-          //  case "fortrack": //to be removed lateron (only used for code tracking)
-          //      System.out.println(MQArray.size() + ") " + MQArray.get(MQArray.size()-1).get(0).toString() + "  (reference: -"+ MQArray.get(MQArray.size()-1).get(1).toString() + ")");
-          //      System.out.println(MQArray.size()+" fortrack");
-          //      break;
-            case "fordisplay":
-                //System.out.println(MQArray.size()+" fordsplay track");
-                //System.out.println(MQArray +" fordsplay ");
-                for (int i = 0; i < MQArray.size(); i++) {
-                    System.out.println((i+1)+") " + 
-                    MQArray.get(i).get(0).toString() + 
-                    ("  (reference: -"+ MQArray.get(i).get(1).toString() + ")")); 
+public class MQMain {
+    static Scanner sc = new Scanner(System.in);
+    static MQArray MQMethod = new MQArray();
+    public static void main(String args[]) {
+        // MQMethod.initializer(); // only for array tracking 
+        while (true) {
+            try {
+                System.out.println("\nQUOTE GENERATOR:");
+                System.out.println("What would you like to do today?");
+                System.out.println("1) Add quote\n2) Remove quote\n3) Search a quote\n4) Display All Exisisting Quotes\n5) Random Quote\n6) Exit");
+                System.out.print("> ");
+                int mainOption = sc.nextInt();
+                switch (mainOption) {
+                    case 1:
+                        newQuote();
+                        break; // case 1 (Add Quote) end
+                    case 2:
+                        removeQuote();
+                        break;
+                    case 3:
+                        searchQuote();
+                        break;
+                    case 4:
+                        MQMethod.displayAll();
+                        break;
+                    case 5:
+                        MQMethod.Random();
+                        break;
+                    case 6:
+                        sc.close();
+                        System.exit(0);
+                        break;
                 }
-                break;
+            }
+            catch (Exception e){
+                System.out.println("\nInvalid input. Please try again.");
+                sc.nextLine();
+                MQMethod.delay(1000);
+            }
+        }
+    }
+    public static void newQuote() {
+        boolean onRepeat = true;
+        try {
+            while (onRepeat) {
+                System.out.println("What is the quote? (i can't take numbers)");
+                System.out.print("> ");
+                sc.nextLine();
+                String newQuote = sc.nextLine();
+                System.out.println("\nWhat is reference? (leave blank if unknown)");
+                System.out.print("> ");
+                String refQuote = sc.nextLine();
+                
+                if (!newQuote.trim().matches("[a-zA-Z ]+") && !refQuote.trim().matches("[a-zA-Z ]+")) {
+                    throw new IllegalArgumentException("Invalid input.");
+                }
+
+                else if (newQuote.trim().matches("[a-zA-Z ]+") && refQuote.trim().matches("[a-zA-Z ]+")) {
+                    // System.out.println("print 1");
+                    MQMethod.addQuote(newQuote, refQuote);
+                    onRepeat = false;
+                }
+                else if (newQuote.trim().matches("[a-zA-Z ]+") && refQuote.isEmpty()) {
+                    // System.out.println("print 2");
+                    MQMethod.addQuote(newQuote);
+                    onRepeat = false;
+                }
+                else {
+                    // System.out.println("print 3");
+                    MQMethod.addQuote();
+                    onRepeat = false;
+                }
+            }
+        }
+
+        catch (Exception e) {
+            System.out.println("Invalid input. Please try again.");
         }
     }
 
-    public boolean Match(String userinput) {
-        for (int i = 0; i < MQArray.size(); i++)
-            if (MQArray.get(i).contains(userinput)) {
+    public static void removeQuote() {
+        MQMethod.displayAll();
+        System.out.println("Which quote would you like to remove?");
+        System.out.print("> ");
+        int removeQuote = sc.nextInt();
+        MQMethod.removeQuote(removeQuote);
+        System.out.println("You have removed: " + removeQuote);
+    }
 
-            }
-        return false;
+    public static void searchQuote() {
+        System.out.println("What existing quote would you like to search?");
+        System.out.print("> ");
+        sc.nextLine();
+        String searchQuote = sc.nextLine();
+        MQMethod.searchQuote(searchQuote);
     }
 }
-
-    
-
